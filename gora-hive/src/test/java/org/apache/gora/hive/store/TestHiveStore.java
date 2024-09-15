@@ -24,6 +24,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Arrays;
 import org.apache.avro.util.Utf8;
 import org.apache.gora.examples.generated.Employee;
 import org.apache.gora.examples.generated.Metadata;
@@ -72,6 +73,7 @@ public class TestHiveStore extends DataStoreTestBase {
     employeeStore.flush();
 
     String[] fields = ((HiveStore<String, Employee>) employeeStore).getFields();
+    Arrays.sort(fields); // Ensure deterministic order
     for (Set<String> subset : StringUtils.powerset(fields)) {
       if (subset.isEmpty()) {
         continue;
